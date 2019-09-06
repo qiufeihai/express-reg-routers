@@ -5,6 +5,7 @@ module.exports = function registerRouters(app, methodPathSeparators = '$') {
      let tmpStr = appReg.regexp.toString()
      let baseUrl = tmpStr.substring(2, tmpStr.indexOf('?')).replace(/\\/g, '')
      appReg.handle.stack.forEach(layer => {
+       if (!layer.route) return;
        let fullPath = Object.keys(layer.route.methods).join('') + methodPathSeparators +baseUrl + layer.route.path
        fullPath = fullPath.replace('//', '/')
        ret.push(fullPath)
